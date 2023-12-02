@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+final  random = Random();
 
 class DiceRoller extends StatefulWidget {
   const DiceRoller({super.key});
@@ -9,13 +12,13 @@ class DiceRoller extends StatefulWidget {
 }
 
 class _DiceRollerState extends State<DiceRoller> {
-  var activeDiceImage =
-      'assets/images/dice1.png'; // since we are using an var here this means that we cannot use const for the constructor as the the properties of the class can change internaly
+  var currentDiceRoll=2;
+
   void rollDice() {
     setState(() {
-      activeDiceImage = 'assets/images/dice2.png';
+      currentDiceRoll= random.nextInt(6)+1; // this is redundet and not the optimized code because every time the rollDice function executes a new object is created and this leads to memory usage hence we can use the single object created and then use that object a we want 
     });
-    print("Roll dice has been pressed");
+    // print("Roll dice has been pressed");
   }
 
   @override
@@ -24,7 +27,7 @@ class _DiceRollerState extends State<DiceRoller> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(
-          activeDiceImage,
+          'assets/images/dice$currentDiceRoll.png',
           width: 200,
         ),
         const SizedBox(
