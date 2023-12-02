@@ -24,7 +24,7 @@ void main() {
           ),
           child: const Center(
             child: Text(
-              "Hello world",
+              "Hello world",// here string is the first Positional argument as it is required argument others are optional and hence they should be named arguments 
               style: TextStyle( // configruational Object 
                 color: Colors.white,
                 fontSize: 28,
