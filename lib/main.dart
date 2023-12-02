@@ -23,7 +23,13 @@ void main() {
             ),
           ),
           child: const Center(
-            child: Text("hello world"),
+            child: Text(
+              "Hello world",
+              style: TextStyle( // configruational Object 
+                color: Colors.white,
+                fontSize: 28,
+              ),
+            ),
           ),
         ),
       ),
