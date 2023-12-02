@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({
+  const StartScreen(this.startQuiz,{
     super.key,
   });
 
+final void Function() startQuiz; // this line means that : final means the there will be no change in the function recived in start quiz once the constructor function is called,void means the startQuiz function will be a void function, Function() means the the startQuiz function will  have no argeuments so ();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -40,7 +41,7 @@ class StartScreen extends StatelessWidget {
           ),
           ElevatedButton.icon(
               // changing it to an icon supported button to add icons to the button
-              onPressed: () {},
+              onPressed: startQuiz,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
                 shape: const RoundedRectangleBorder(

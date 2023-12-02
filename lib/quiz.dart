@@ -13,7 +13,7 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
 
-  Widget activeScreen = const StartScreen(); // here we use Widged insted of var bacause var is too specific as activeScreen will have type of widget but also of type StartScreen and will throw an error on using it in setState for changing the screen. Thus we use Widged which is less specific hence more preferrable 
+  Widget activeScreen = const StartScreen(swithScreen); // here we use Widged insted of var bacause var is too specific as activeScreen will have type of widget but also of type StartScreen and will throw an error on using it in setState for changing the screen. Thus we use Widged which is less specific hence more preferrable 
   void swithScreen() {
     setState(() {
       activeScreen = const QuestionsScreen();
