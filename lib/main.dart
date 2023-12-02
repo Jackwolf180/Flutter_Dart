@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+    const  MaterialApp(
       // it the root widget for flutter
       // it is constructor fuction of a class , also it is widget
       home: Scaffold(

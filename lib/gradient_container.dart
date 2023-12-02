@@ -1,6 +1,7 @@
 // Making Custom Widgets
 
 // import 'package:basics/styled_text.dart';
+import 'package:basics/dice_roller.dart';
 import 'package:flutter/material.dart';
 
 // var startAlignment = Alignment.topLeft; // variable (global) this simply will throw an error because the value of the variable can be changed after wards ( which can even be null)
@@ -61,22 +62,17 @@ class GradientContainer extends StatelessWidget {
 
   // GradientContainer({key}):super(key: key) // this is done to forward a key argrument to the super class which this class extends
   // another way to do it ( more preferable method)
-  GradientContainer(this.color1, this.color2,
+  const GradientContainer(this.color1, this.color2,
       {super.key}); // this the default constructor function
 
-  GradientContainer.purple({super.key})
+  const GradientContainer.purple({super.key})
       : color1 = Colors.purple,
         color2 = const Color.fromARGB(
             255, 111, 20, 127); // this this the multiple constructor function
-
+ 
   final Color color1;
   final Color color2;
-  var activeDiceImage =
-      'assets/images/dice1.png'; // since we are using an var here this means that we cannot use const for the constructor as the the properties of the class can change internaly
-  void rollDice() {
-    activeDiceImage = 'assets/images/dice2.png';
-    print("Roll dice has been pressed");
-  }
+
 
   // here since this function returns a widged hence we added widget in front of it ( a Widget return type )
   @override
@@ -97,27 +93,8 @@ class GradientContainer extends StatelessWidget {
           end: endAlignment,
         ),
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              activeDiceImage,
-              width: 200,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextButton(
-                onPressed: rollDice,
-                style: TextButton.styleFrom(
-                    // for adding padding we can use padding or by using sized box
-                    // padding: const EdgeInsets.only(top: 20),
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(fontSize: 28)),
-                child: const Text("Roll Dice"))
-          ],
-        ), // here we are using the multiple constructor function of the image class
+      child: const Center(
+        child: DiceRoller()
       ),
     );
   }
