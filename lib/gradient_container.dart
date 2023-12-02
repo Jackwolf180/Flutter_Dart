@@ -1,5 +1,6 @@
 // Making Custom Widgets
 
+import 'package:basics/styled_text.dart';
 import 'package:flutter/material.dart';
 
 class GradientContainer extends StatelessWidget {
@@ -32,14 +33,7 @@ class GradientContainer extends StatelessWidget {
         ),
       ),
       child: const Center(
-        child: Text(
-          "Hello world", // here string is the first Positional argument as it is required argument others are optional and hence they should be named arguments
-          style: TextStyle(
-            // configruational Object
-            color: Colors.white,
-            fontSize: 28,
-          ),
-        ),
+        child: StyledText(),
       ),
     );
   }
