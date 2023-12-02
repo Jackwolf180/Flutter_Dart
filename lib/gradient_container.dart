@@ -1,6 +1,6 @@
 // Making Custom Widgets
 
-import 'package:basics/styled_text.dart';
+// import 'package:basics/styled_text.dart';
 import 'package:flutter/material.dart';
 
 // var startAlignment = Alignment.topLeft; // variable (global) this simply will throw an error because the value of the variable can be changed after wards ( which can even be null)
@@ -61,7 +61,14 @@ class GradientContainer extends StatelessWidget {
 
   // GradientContainer({key}):super(key: key) // this is done to forward a key argrument to the super class which this class extends
   // another way to do it ( more preferable method)
-  const GradientContainer(this.color1, this.color2,{super.key});
+  const GradientContainer(this.color1, this.color2,
+      {super.key}); // this the default constructor function
+
+  const GradientContainer.purple({super.key})
+      : color1 = Colors.purple,
+        color2 = const Color.fromARGB(
+            255, 111, 20, 127); // this this the multiple constructor function
+
   final Color color1;
   final Color color2;
 
@@ -84,8 +91,11 @@ class GradientContainer extends StatelessWidget {
           end: endAlignment,
         ),
       ),
-      child: const Center(
-        child: StyledText("Hello World"),
+      child: Center(
+        child: Image.asset(
+          'assets/images/dice1.png',
+          width: 200,
+        ), // here we are using the multiple constructor function of the image class
       ),
     );
   }
