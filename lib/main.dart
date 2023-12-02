@@ -8,7 +8,19 @@ void main() {
       home: Scaffold(
         // Named Parameters
         // backgroundColor: Colors.purple[300],// here colors is a object provided by the colors class and Purple is a property(better to say it is list here because [300],we can also use fromARGB()  ), it returns a object of COLOR OBJECT , It is also called Configurational Object
-        body: Container(
+        body: GradientContainer(),
+      ),
+    ),
+  );
+}
+
+// Making Custom Widgets 
+
+class GradientContainer extends StatelessWidget{
+  // here since this function returns a widged hence we added widget in front of it ( a Widget return type ) 
+  @override
+  Widget build(BuildContext context) { // flutter calls this buid method once it finds this widget( here GradientContainer) and sends some meta data to the widget which is received by the contex paramets of type BuildContext
+    return  Container(
           // using Const helps in memory Optimization
           decoration: const BoxDecoration(
             // Here this returns BoxDecoration Object which is also of type DECORATION OBJECT
@@ -31,8 +43,6 @@ void main() {
               ),
             ),
           ),
-        ),
-      ),
-    ),
-  );
+        );
+  }
 }
