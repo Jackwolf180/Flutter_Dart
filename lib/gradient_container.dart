@@ -61,17 +61,22 @@ class GradientContainer extends StatelessWidget {
 
   // GradientContainer({key}):super(key: key) // this is done to forward a key argrument to the super class which this class extends
   // another way to do it ( more preferable method)
-  const GradientContainer(this.color1, this.color2,
+  GradientContainer(this.color1, this.color2,
       {super.key}); // this the default constructor function
 
-  const GradientContainer.purple({super.key})
+  GradientContainer.purple({super.key})
       : color1 = Colors.purple,
         color2 = const Color.fromARGB(
             255, 111, 20, 127); // this this the multiple constructor function
-  void rollDice() {}
 
   final Color color1;
   final Color color2;
+  var activeDiceImage =
+      'assets/images/dice1.png'; // since we are using an var here this means that we cannot use const for the constructor as the the properties of the class can change internaly
+  void rollDice() {
+    activeDiceImage = 'assets/images/dice2.png';
+    print("Roll dice has been pressed");
+  }
 
   // here since this function returns a widged hence we added widget in front of it ( a Widget return type )
   @override
@@ -97,7 +102,7 @@ class GradientContainer extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              'assets/images/dice1.png',
+              activeDiceImage,
               width: 200,
             ),
             const SizedBox(
