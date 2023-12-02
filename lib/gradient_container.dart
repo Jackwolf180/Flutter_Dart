@@ -3,6 +3,9 @@
 import 'package:basics/styled_text.dart';
 import 'package:flutter/material.dart';
 
+var startAlignment = Alignment.topLeft; // variable (global) this simply will throw an error because the value of the variable can be changed after wards ( which can even be null) 
+var endAlignment = Alignment.bottomRight;
+
 class GradientContainer extends StatelessWidget {
   // GradientContainer({}){// adding some named parameters or list or Postiional parameters which are passed by the calling function eg: Text("hello") would have Text(String ,{TextStyle style, double fontSize}){
   // initialization work on the parameters received
@@ -20,16 +23,16 @@ class GradientContainer extends StatelessWidget {
     // flutter calls this buid method once it finds this widget( here GradientContainer) and sends some meta data to the widget which is received by the contex paramets of type BuildContext
     return Container(
       // using Const helps in memory Optimization
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         // Here this returns BoxDecoration Object which is also of type DECORATION OBJECT
         gradient: LinearGradient(
-          colors: [
+          colors: const[
             // List a (generic type) is created by using [] with comma seperated values
             Color.fromARGB(255, 108, 9, 126),
             Color.fromARGB(223, 99, 16, 116),
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: startAlignment,
+          end: endAlignment,
         ),
       ),
       child: const Center(
