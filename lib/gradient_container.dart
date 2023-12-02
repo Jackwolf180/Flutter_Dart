@@ -3,8 +3,13 @@
 import 'package:basics/styled_text.dart';
 import 'package:flutter/material.dart';
 
-var startAlignment = Alignment.topLeft; // variable (global) this simply will throw an error because the value of the variable can be changed after wards ( which can even be null) 
-var endAlignment = Alignment.bottomRight;
+// var startAlignment = Alignment.topLeft; // variable (global) this simply will throw an error because the value of the variable can be changed after wards ( which can even be null) 
+// var endAlignment = Alignment.bottomRight;
+
+// another way could be to use final or const because this values are not changing Note that final is used an a runtime const while const is a compile time const eg: final startAlingmnet = getAlignment(); this means that the vlaue in startAlingnment will become const only after it receives the value from the funciton getAlignment ,which can only send the value at the runtime;  here we use const 
+
+const startAlignment = Alignment.topLeft; 
+const endAlignment = Alignment.bottomRight;
 
 class GradientContainer extends StatelessWidget {
   // GradientContainer({}){// adding some named parameters or list or Postiional parameters which are passed by the calling function eg: Text("hello") would have Text(String ,{TextStyle style, double fontSize}){
@@ -23,10 +28,10 @@ class GradientContainer extends StatelessWidget {
     // flutter calls this buid method once it finds this widget( here GradientContainer) and sends some meta data to the widget which is received by the contex paramets of type BuildContext
     return Container(
       // using Const helps in memory Optimization
-      decoration:  BoxDecoration(
+      decoration:  const BoxDecoration(
         // Here this returns BoxDecoration Object which is also of type DECORATION OBJECT
         gradient: LinearGradient(
-          colors: const[
+          colors: [
             // List a (generic type) is created by using [] with comma seperated values
             Color.fromARGB(255, 108, 9, 126),
             Color.fromARGB(223, 99, 16, 116),
