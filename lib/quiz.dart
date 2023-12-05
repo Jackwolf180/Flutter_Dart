@@ -57,11 +57,11 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
-  var activeScreen = "currentScreen";
+  var activeScreen = "start-screen";
 
   void switchScreen() {
     setState(() {
-      activeScreen = "QuizScreen";
+      activeScreen = "quiz-screen";
     });
   }
 
@@ -77,7 +77,7 @@ class _QuizState extends State<Quiz> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight),
           ),
-          child: activeScreen=="CurrentScreen"?StartScreen(switchScreen):const QuestionsScreen()
+          child: activeScreen=="start-screen"?StartScreen(switchScreen):const QuestionsScreen()
         ),
       ),
     );
