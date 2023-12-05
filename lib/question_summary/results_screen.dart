@@ -1,9 +1,12 @@
 import 'package:basics/data/questions.dart';
-import 'package:basics/questions_summary.dart';
+import 'package:basics/question_summary/questions_summary.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.chosenAnswers});
+  const ResultsScreen(
+      {super.key, required this.chosenAnswers, required this.restartQuiz});
+  final void Function() restartQuiz;
   final List<String> chosenAnswers;
 
   List<Map<String, Object>> getSummaryData() {
@@ -24,7 +27,8 @@ class ResultsScreen extends StatelessWidget {
     final numOfTotalQuestions = questions.length;
     final summartData = getSummaryData();
     final numOfCorrectQuestions = summartData
-        .where((data) => data["correct_Answer"] == data["user_Answer"]).length;
+        .where((data) => data["correct_Answer"] == data["user_Answer"])
+        .length;
     return SizedBox(
       width: double
           .infinity, // this is another method insted of using center inside a container
@@ -32,9 +36,17 @@ class ResultsScreen extends StatelessWidget {
         margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-                "You Answerd $numOfCorrectQuestions out $numOfTotalQuestions questions correct"),
+              "You Answerd $numOfCorrectQuestions out $numOfTotalQuestions questions correct",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.lato(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+              ),
+            ),
             const SizedBox(
               height: 40,
             ),
@@ -43,8 +55,17 @@ class ResultsScreen extends StatelessWidget {
               height: 40,
             ),
             ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.redo_rounded),
+                onPressed: restartQuiz,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                ),
+                icon: const Icon(Icons.restart_alt_rounded),
                 label: const Text("Restart Quiz"))
           ],
         ),

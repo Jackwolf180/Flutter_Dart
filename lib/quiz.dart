@@ -1,6 +1,6 @@
 import 'package:basics/data/questions.dart';
 import 'package:basics/questions_screen.dart';
-import 'package:basics/results_screen.dart';
+import 'package:basics/question_summary/results_screen.dart';
 import 'package:basics/start_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -105,6 +105,13 @@ class _QuizState extends State<Quiz> {
     }
   }
 
+  void restartQuiz(){
+    selectedAnswers=[];
+    setState(() {
+      activeScreen='start-screen';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget screenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);
@@ -115,6 +122,7 @@ class _QuizState extends State<Quiz> {
     if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
         chosenAnswers: selectedAnswers,
+        restartQuiz: restartQuiz,
       );
     }
     return MaterialApp(
