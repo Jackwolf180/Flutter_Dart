@@ -13,8 +13,16 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
 
-  Widget activeScreen = const StartScreen(swithScreen); // here we use Widged insted of var bacause var is too specific as activeScreen will have type of widget but also of type StartScreen and will throw an error on using it in setState for changing the screen. Thus we use Widged which is less specific hence more preferrable 
-  void swithScreen() {
+  Widget?
+      activeScreen; // here we use Widged insted of var bacause var is too specific as activeScreen will have type of widget but also of type StartScreen and will throw an error on using it in setState for changing the screen. Thus we use Widged which is less specific hence more preferrable
+  @override
+  void initState() {
+    // using the inti state method . this method initializes the the switch screen method and then sets the active screen widgedt to startscreen(swithchScreen) and then runs the (flow is like _QuizState(constructor)-> initializing switchScreen -> initState()-> build of )
+    activeScreen = StartScreen(switchScreen);
+    super.initState();
+  }
+
+  void switchScreen() {
     setState(() {
       activeScreen = const QuestionsScreen();
     });
