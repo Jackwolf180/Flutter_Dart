@@ -21,6 +21,10 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final numOfTotalQuestions = questions.length;
+    final summartData = getSummaryData();
+    final numOfCorrectQuestions = summartData
+        .where((data) => data["correct_Answer"] == data["user_Answer"]).length;
     return SizedBox(
       width: double
           .infinity, // this is another method insted of using center inside a container
@@ -29,7 +33,8 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("You Answerd X out Y questions correct"),
+            Text(
+                "You Answerd $numOfCorrectQuestions out $numOfTotalQuestions questions correct"),
             const SizedBox(
               height: 40,
             ),
