@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen(this.startQuiz,{
+  const StartScreen(
+    this.startQuiz, {
     super.key,
   });
 
-final void Function() startQuiz; // this line means that : final means the there will be no change in the function recived in start quiz once the constructor function is called,void means the startQuiz function will be a void function, Function() means the the startQuiz function will  have no argeuments so ();
+  final void Function()
+      startQuiz; // this line means that : final means the there will be no change in the function recived in start quiz once the constructor function is called,void means the startQuiz function will be a void function, Function() means the the startQuiz function will  have no argeuments so ();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -14,7 +17,8 @@ final void Function() startQuiz; // this line means that : final means the there
         children: [
           Image.asset(
             "assets/images/quiz-logo.png",
-            color: const Color.fromARGB(93, 255, 255, 255), // another and more preferable way to add opacity to the widget 
+            color: const Color.fromARGB(93, 255, 255,
+                255), // another and more preferable way to add opacity to the widget
             width: 300,
           ),
 
@@ -29,13 +33,12 @@ final void Function() startQuiz; // this line means that : final means the there
           const SizedBox(
             height: 80,
           ),
-          const Text(
-            "Learn Flutter the Fun way!",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
+          Text("Learn Flutter the Fun way!",
+              style: GoogleFonts.lato(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              )),
           const SizedBox(
             height: 30,
           ),

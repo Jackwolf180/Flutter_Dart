@@ -84,6 +84,8 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
+
+  final List<String> selectedAnswers = [];
   var activeScreen = "start-screen";
 
   void switchScreen() {
@@ -92,9 +94,13 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer){
+    selectedAnswers.add(answer);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget screenWidget = const QuestionsScreen();
+    Widget screenWidget = const QuestionsScreen(onSelectAnswer: chooseAnswer);
     if (activeScreen == 'start-screen') {
       screenWidget = StartScreen(switchScreen);
     }
