@@ -13,9 +13,15 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
-  var currentQuestion = questions[0];
+  var currentQuestionIndex = 0;
+  void anwerQuestion() {
+    setState(() {
+      currentQuestionIndex++;
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    var currentQuestion = questions[currentQuestionIndex];
     return SizedBox(
       width: double
           .infinity, // this is another method insted of using center inside a container
@@ -34,7 +40,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               height: 30,
             ),
             ...currentQuestion.getShuffledAnswers().map((answer) {
-              return AnswerButton(onClicked: () {}, answer: answer);
+              return AnswerButton(onClicked: anwerQuestion, answer: answer);
             })
           ],
         ),
