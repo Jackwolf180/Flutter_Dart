@@ -10,8 +10,7 @@ class Quiz extends StatefulWidget {
   }
 }
 
-
-// METHOD 1 OF LIFTING STATE 
+// METHOD 1 OF LIFTING STATE
 
 // class _QuizState extends State<Quiz> {
 //   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
@@ -50,10 +49,38 @@ class Quiz extends StatefulWidget {
 //   }
 // }
 
-
-
-
 // METHOD 2 OF LIFTING STATE
+
+// class _QuizState extends State<Quiz> {
+//   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
+//   var activeScreen = "start-screen";
+
+//   void switchScreen() {
+//     setState(() {
+//       activeScreen = "quiz-screen";
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         body: Container(
+//           // here we kept the container here because we wanted to keep the same style in all the pages
+//           decoration: const BoxDecoration(
+//             gradient: LinearGradient(
+//                 colors: [Colors.purple, Color.fromARGB(255, 106, 11, 123)],
+//                 begin: Alignment.topLeft,
+//                 end: Alignment.bottomRight),
+//           ),
+//           child: activeScreen=="start-screen"?StartScreen(switchScreen):const QuestionsScreen()
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// METHOD 3 OF LIFTING STATE
 
 class _QuizState extends State<Quiz> {
   // we here add _ to donate the this is a private class hence this class is only accessible to Quiz class
@@ -67,18 +94,21 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    Widget screenWidget = const QuestionsScreen();
+    if (activeScreen == 'start-screen') {
+      screenWidget = StartScreen(switchScreen);
+    }
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          // here we kept the container here because we wanted to keep the same style in all the pages
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.purple, Color.fromARGB(255, 106, 11, 123)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight),
-          ),
-          child: activeScreen=="start-screen"?StartScreen(switchScreen):const QuestionsScreen()
-        ),
+            // here we kept the container here because we wanted to keep the same style in all the pages
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.purple, Color.fromARGB(255, 106, 11, 123)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight),
+            ),
+            child: screenWidget),
       ),
     );
   }

@@ -44,6 +44,7 @@ final void Function() startQuiz; // this line means that : final means the there
               onPressed: startQuiz,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
+                foregroundColor: Colors.white,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
