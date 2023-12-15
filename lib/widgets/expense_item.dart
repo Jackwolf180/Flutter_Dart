@@ -26,11 +26,11 @@ class ExpenseItem extends StatelessWidget {
                 const Spacer(), // this widget is used to take all the space in between the widget
                 Row(
                   children: [
-                    const Icon(Icons.alarm),
+                    Icon(catagoryIcons[expense.catagory]),
                     const SizedBox(
-                      width: 4,
+                      width: 8,
                     ),
-                    Text(expense.date.toString())
+                    Text(expense.formattedDate)
                   ],
                 ) // this is used to diaplay to certain significant figure
               ],
