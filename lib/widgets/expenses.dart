@@ -1,5 +1,6 @@
 import 'package:basics/widgets/expenses_list.dart';
 import 'package:basics/models/expense.dart';
+import 'package:basics/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ExpensesState extends State<Expenses> {
   ];
 
   void _openAddExpenseOverlay() {
-    showModalBottomSheet(context: context, builder: (ctx)=> Text("Modal Bottom Sheet"));// here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget 
+    showModalBottomSheet(context: context, builder: (ctx)=> const NewExpense());// here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget 
   }
 
   @override
