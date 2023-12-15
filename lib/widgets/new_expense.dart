@@ -7,24 +7,28 @@ class NewExpense extends StatefulWidget {
   State createState() => _NewExpenseState();
 }
 
-var _enteredTtitle = "";
-
-void _saveTitleInput(String inputValue) {
-  _enteredTtitle = inputValue;
-}
-
 class _NewExpenseState extends State<NewExpense> {
+  final _titleController = TextEditingController();
+
+  @override
+  void dispose() {
+    // we should always use this dispose method on the controller after their usage otherwise they would cause memory lekage and lead to crashing
+    _titleController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          const TextField(
-            onChanged: _saveTitleInput,
+          TextField(
+            // onChanged: _saveTitleInput,
+            controller: _titleController,
             maxLength: 50,
             // keyboardType: TextInputType.text,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text("Title"),
             ),
           ),
@@ -32,7 +36,7 @@ class _NewExpenseState extends State<NewExpense> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    print(_enteredTtitle);
+                    print(_titleController.text);
                   },
                   child: const Text("Save Expense"))
             ],
