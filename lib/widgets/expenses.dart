@@ -24,12 +24,17 @@ class _ExpensesState extends State<Expenses> {
         catagory: Catagory.leisure),
   ];
 
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(context: context, builder: (ctx)=> Text("Modal Bottom Sheet"));// here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget 
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Flutter Expense Tracker"),
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))]),
+      appBar: AppBar(title: const Text("Flutter Expense Tracker"), actions: [
+        IconButton(
+            onPressed: _openAddExpenseOverlay, icon: const Icon(Icons.add)),
+      ]),
       body: Column(children: [
         const Text("The Chart"),
         Expanded(
