@@ -1,3 +1,4 @@
+import 'package:basics/widgets/expenses_list.dart';
 import 'package:basics/models/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +24,15 @@ class _ExpensesState extends State<Expenses> {
         catagory: Catagory.leisure),
   ];
 
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(children: [
-        Text("The Chart"),
-        Text("Expenses List"),
+        const Text("The Chart"),
+        Expanded(
+            child: ExpensesList(
+                expenses:
+                    _registerdExpenses)), // here we use expended because in case of column or colume like widget the list takes infinite heigth
       ]),
     );
   }
