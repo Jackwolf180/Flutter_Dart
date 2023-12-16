@@ -37,6 +37,7 @@ class _ExpensesState extends State<Expenses> {
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (ctx) => NewExpense(
               onAddExpense: _addExpense,
             )); // here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget
@@ -45,6 +46,12 @@ class _ExpensesState extends State<Expenses> {
   void _addExpense(Expense newExpense) {
     setState(() {
       _registerdExpenses.add(newExpense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registerdExpenses.remove(expense);
     });
   }
 
@@ -59,8 +66,9 @@ class _ExpensesState extends State<Expenses> {
         const Text("The Chart"),
         Expanded(
             child: ExpensesList(
-                expenses:
-                    _registerdExpenses)), // here we use expended because in case of column or colume like widget the list takes infinite heigth
+          expenses: _registerdExpenses,
+          onRemoveExpense: _removeExpense,
+        )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
       ]),
     );
   }
