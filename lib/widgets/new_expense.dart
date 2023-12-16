@@ -39,8 +39,22 @@ class _NewExpenseState extends State<NewExpense> {
         amountIsInvalid ||
         _selectedDate == null) {
       // show error message
-
-      
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invalid Input"),
+          content: const Text(
+              "Please make sure that correct Title, Amount, Date and Catagory was entered"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: const Text("Okay"))
+          ],
+        ),
+      );
+      return;
     }
   }
 
@@ -83,19 +97,21 @@ class _NewExpenseState extends State<NewExpense> {
                 width: 4,
               ),
               Expanded(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(_selectedDate == null
-                      ? "No Date Selected"
-                      : formatter.format(
-                          _selectedDate!)), // here we add an exclamation to say that the value is not null
-                  IconButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(_selectedDate == null
+                        ? "No Date Selected"
+                        : formatter.format(
+                            _selectedDate!)), // here we add an exclamation to say that the value is not null
+                    IconButton(
                       onPressed: _presentDatePicker,
-                      icon: const Icon(Icons.calendar_month))
-                ],
-              ))
+                      icon: const Icon(Icons.calendar_month),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
           const SizedBox(
@@ -104,35 +120,39 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             children: [
               DropdownButton(
-                  value: _selectedCatagory,
-                  items: Catagory.values
-                      .map((catagory) => DropdownMenuItem(
+                value: _selectedCatagory,
+                items: Catagory.values
+                    .map((catagory) => DropdownMenuItem(
                           value: catagory,
-                          child: Text(catagory.name.toUpperCase())))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value == null) {
-                      // writing a if check to check if the value is not null
-                      return;
-                    }
-                    setState(() {
-                      _selectedCatagory = value;
-                    });
-                  }),
+                          child: Text(catagory.name.toUpperCase()),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) {
+                    // writing a if check to check if the value is not null
+                    return;
+                  }
+                  setState(() {
+                    _selectedCatagory = value;
+                  });
+                },
+              ),
               const Spacer(),
               TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Cancel")),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Cancel"),
+              ),
               const SizedBox(
                 width: 4,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    _submitExpenseDate();
-                  },
-                  child: const Text("Save Expense"))
+                onPressed: () {
+                  _submitExpenseDate();
+                },
+                child: const Text("Save Expense"),
+              )
             ],
           )
         ],
