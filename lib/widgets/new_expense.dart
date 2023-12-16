@@ -14,6 +14,8 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime?
       _selectedDate; // we  use ? to tell that the selectedDate can possibly be null
 
+  Catagory _selectedCatagory = Catagory.leisure;
+
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
@@ -84,8 +86,28 @@ class _NewExpenseState extends State<NewExpense> {
               ))
             ],
           ),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
+              DropdownButton(
+                  value: _selectedCatagory,
+                  items: Catagory.values
+                      .map((catagory) => DropdownMenuItem(
+                          value: catagory,
+                          child: Text(catagory.name.toUpperCase())))
+                      .toList(),
+                  onChanged: (value) {
+                    if (value == null) {
+                      // writing a if check to check if the value is not null
+                      return;
+                    }
+                    setState(() {
+                      _selectedCatagory = value;
+                    });
+                  }),
+              const Spacer(),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
