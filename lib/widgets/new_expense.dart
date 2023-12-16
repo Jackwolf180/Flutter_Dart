@@ -56,6 +56,13 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return;
     }
+    Navigator.pop(
+        context,
+        Expense(
+            title: _titleController.text,
+            amount: enteredAmount,
+            date: _selectedDate!,
+            catagory: _selectedCatagory));
   }
 
   @override
