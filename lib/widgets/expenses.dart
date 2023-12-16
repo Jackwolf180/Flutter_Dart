@@ -25,8 +25,27 @@ class _ExpensesState extends State<Expenses> {
         catagory: Catagory.leisure),
   ];
 
+// Method 1 to add new Expenses to the list using navigator.pop()
+  // void _openAddExpenseOverlay() async{
+  //   Expense newExpense= await showModalBottomSheet(context: context, builder: (ctx)=> const NewExpense());// here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget
+  //   setState(() {
+  //     _registerdExpenses.add(newExpense);
+  //   });
+  // }
+
+// Method 2 by using pass by address
   void _openAddExpenseOverlay() {
-    showModalBottomSheet(context: context, builder: (ctx)=> const NewExpense());// here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget 
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) => NewExpense(
+              onAddExpense: _addExpense,
+            )); // here we alread have an globally avialabe context propery made aviallabel by flutter in statefulWidget
+  }
+
+  void _addExpense(Expense newExpense) {
+    setState(() {
+      _registerdExpenses.add(newExpense);
+    });
   }
 
   @override

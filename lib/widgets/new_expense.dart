@@ -2,7 +2,9 @@ import 'package:basics/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final Function(Expense) onAddExpense;
 
   @override
   State createState() => _NewExpenseState();
@@ -56,13 +58,22 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return;
     }
-    Navigator.pop(
-        context,
-        Expense(
-            title: _titleController.text,
-            amount: enteredAmount,
-            date: _selectedDate!,
-            catagory: _selectedCatagory));
+
+    // Method 1 to send expense data using the Navigator.pop()
+    // Navigator.pop(
+    //     context,
+    //     Expense(
+    //         title: _titleController.text,
+    //         amount: enteredAmount,
+    //         date: _selectedDate!,
+    //         catagory: _selectedCatagory));
+
+    // Method 2 by using the passby address
+    widget.onAddExpense(Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        date: _selectedDate!,
+        catagory: _selectedCatagory));
   }
 
   @override
