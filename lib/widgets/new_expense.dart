@@ -1,6 +1,7 @@
 import 'package:basics/models/expense.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class NewExpense extends StatefulWidget {
   NewExpense({super.key, required this.onAddExpense})
       : initialExpenseData = Expense(
@@ -30,7 +31,7 @@ class _NewExpenseState extends State<NewExpense> {
   Catagory _selectedCatagory = Catagory.leisure;
   @override
   void initState() {
-    if (widget.initialExpenseData.amount != 1) {
+    if (widget.initialExpenseData.amount != -1) {
       _selectedDate = widget.initialExpenseData.date;
       _selectedCatagory = widget.initialExpenseData.catagory;
       _titleController.value =
@@ -98,7 +99,7 @@ class _NewExpenseState extends State<NewExpense> {
         amount: enteredAmount,
         date: _selectedDate!,
         catagory: _selectedCatagory);
-    widget.initialExpenseData.amount == 1
+    widget.initialExpenseData.amount == -1
         ? widget.onAddExpense(finalExpenseData)
         : widget.onUpdateExpense(widget.initialExpenseData, finalExpenseData);
     Navigator.pop(context);

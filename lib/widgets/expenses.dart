@@ -76,7 +76,9 @@ class _ExpensesState extends State<Expenses> {
   void _updateExpense(Expense expense, Expense updatedExpense) {
     var index = _registerdExpenses.indexOf(expense);
     _registerdExpenses.remove(expense);
-    _registerdExpenses.insert(index, updatedExpense);
+    setState(() {
+      _registerdExpenses.insert(index, updatedExpense);
+    });
   }
 
   @override
