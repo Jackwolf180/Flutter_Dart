@@ -118,100 +118,198 @@ class _NewExpenseState extends State<NewExpense> {
     final keyboardSpace = MediaQuery.of(context)
         .viewInsets
         .bottom; // This helps us to know which UI element is at bottom of the screen.
-    return SizedBox(
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
-          child: Column(
-            children: [
-              TextField(
-                // onChanged: _saveTitleInput,
-                controller: _titleController,
-                maxLength: 50,
-                // keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  label: Text("Title"),
-                ),
-              ),
-              Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        var width = constraints.maxWidth;
+        return SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
+                  if (width >= 600)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            // onChanged: _saveTitleInput,
+                            controller: _titleController,
+                            maxLength: 50,
+                            // keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                              label: Text("Title"),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: _amountController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              prefixText: "\$",
+                              label: Text("Amount"),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    TextField(
+                      // onChanged: _saveTitleInput,
+                      controller: _titleController,
+                      maxLength: 50,
+                      // keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
-                        prefixText: "\$",
-                        label: Text("Amount"),
+                        label: Text("Title"),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  if (width >= 600)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(_selectedDate == null
-                            ? "No Date Selected"
-                            : formatter.format(
-                                _selectedDate!)), // here we add an exclamation to say that the value is not null
-                        IconButton(
-                          onPressed: _presentDatePicker,
-                          icon: const Icon(Icons.calendar_month),
+                        DropdownButton(
+                          value: _selectedCatagory,
+                          items: Catagory.values
+                              .map((catagory) => DropdownMenuItem(
+                                    value: catagory,
+                                    child: Text(catagory.name.toUpperCase()),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) {
+                              // writing a if check to check if the value is not null
+                              return;
+                            }
+                            setState(() {
+                              _selectedCatagory = value;
+                            });
+                          },
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(_selectedDate == null
+                                  ? "No Date Selected"
+                                  : formatter.format(
+                                      _selectedDate!)), // here we add an exclamation to say that the value is not null
+                              IconButton(
+                                onPressed: _presentDatePicker,
+                                icon: const Icon(Icons.calendar_month),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _amountController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              prefixText: "\$",
+                              label: Text("Amount"),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(_selectedDate == null
+                                  ? "No Date Selected"
+                                  : formatter.format(
+                                      _selectedDate!)), // here we add an exclamation to say that the value is not null
+                              IconButton(
+                                onPressed: _presentDatePicker,
+                                icon: const Icon(Icons.calendar_month),
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  DropdownButton(
-                    value: _selectedCatagory,
-                    items: Catagory.values
-                        .map((catagory) => DropdownMenuItem(
-                              value: catagory,
-                              child: Text(catagory.name.toUpperCase()),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      if (value == null) {
-                        // writing a if check to check if the value is not null
-                        return;
-                      }
-                      setState(() {
-                        _selectedCatagory = value;
-                      });
-                    },
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancel"),
-                  ),
                   const SizedBox(
-                    width: 4,
+                    height: 16,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      _submitExpenseData();
-                    },
-                    child: const Text("Save Expense"),
-                  )
+                  if (width >= 600)
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _submitExpenseData();
+                          },
+                          child: const Text("Save Expense"),
+                        )
+                      ],
+                    )
+                  else
+                    Row(
+                      children: [
+                        DropdownButton(
+                          value: _selectedCatagory,
+                          items: Catagory.values
+                              .map((catagory) => DropdownMenuItem(
+                                    value: catagory,
+                                    child: Text(catagory.name.toUpperCase()),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) {
+                              // writing a if check to check if the value is not null
+                              return;
+                            }
+                            setState(() {
+                              _selectedCatagory = value;
+                            });
+                          },
+                        ),
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _submitExpenseData();
+                          },
+                          child: const Text("Save Expense"),
+                        )
+                      ],
+                    )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
