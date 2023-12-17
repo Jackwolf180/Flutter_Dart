@@ -47,7 +47,8 @@ void main() {
             titleLarge: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: kColorScheme.onSecondaryContainer,
-                fontSize: 14),
+                // fontSize: 14
+                ),
           ),
     ), // using the themeing system to theme the etire app
     themeMode: ThemeMode.system, // This is the default theme
