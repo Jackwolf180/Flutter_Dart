@@ -36,10 +36,10 @@ class Expense {
   }
 }
 
-class ExpanseBucket {
-  const ExpanseBucket({required this.catagory, required this.expenses});
+class ExpenseBucket {
+  const ExpenseBucket({required this.catagory, required this.expenses});
 
-  ExpanseBucket.forCatagory(List<Expense> allExpenses, this.catagory)
+  ExpenseBucket.forCatagory(List<Expense> allExpenses, this.catagory)
       : expenses = allExpenses
             .where((expense) => expense.catagory == catagory)
             .toList();

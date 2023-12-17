@@ -1,3 +1,4 @@
+import 'package:basics/widgets/chart/chart.dart';
 import 'package:basics/widgets/expenses_list.dart';
 import 'package:basics/models/expense.dart';
 import 'package:basics/widgets/new_expense.dart';
@@ -76,7 +77,7 @@ class _ExpensesState extends State<Expenses> {
         const Center(child: Text("No Expenses found. Start Adding one."));
     if (_registerdExpenses.isNotEmpty) {
       mainContent = Column(children: [
-        const Text("The Chart"),
+        Chart(expenses: _registerdExpenses),
         Expanded(
             child: ExpensesList(
           expenses: _registerdExpenses,
