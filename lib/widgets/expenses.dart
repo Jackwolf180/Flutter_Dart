@@ -37,6 +37,7 @@ class _ExpensesState extends State<Expenses> {
 // Method 2 by using pass by address
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      useSafeArea: true,// this ensures that the ui elements does not exceeds the upper area where camera and other elements are present 
       context: context,
       isScrollControlled: true,
       builder: (ctx) => NewExpense(
