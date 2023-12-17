@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:basics/models/expense.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -58,6 +61,41 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void showPlatformDialog() {
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: const Text("Invalid Input"),
+          content: const Text(
+              "Please make sure that correct Title, Amount, Date and Catagory was entered"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Okay"))
+          ],
+        ),
+      );
+    }
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Invalid Input"),
+        content: const Text(
+            "Please make sure that correct Title, Amount, Date and Catagory was entered"),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text("Okay"))
+        ],
+      ),
+    );
+  }
+
   void _submitExpenseData() {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
@@ -65,21 +103,7 @@ class _NewExpenseState extends State<NewExpense> {
         amountIsInvalid ||
         _selectedDate == null) {
       // show error message
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text("Invalid Input"),
-          content: const Text(
-              "Please make sure that correct Title, Amount, Date and Catagory was entered"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                },
-                child: const Text("Okay"))
-          ],
-        ),
-      );
+      showPlatformDialog();
       return;
     }
 
