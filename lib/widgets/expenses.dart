@@ -37,7 +37,8 @@ class _ExpensesState extends State<Expenses> {
 // Method 2 by using pass by address
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
-      useSafeArea: true,// this ensures that the ui elements does not exceeds the upper area where camera and other elements are present 
+      useSafeArea:
+          true, // this ensures that the ui elements does not exceeds the upper area where camera and other elements are present
       context: context,
       isScrollControlled: true,
       builder: (ctx) => NewExpense(
@@ -72,6 +73,12 @@ class _ExpensesState extends State<Expenses> {
         content: const Text("Expense deleted")));
   }
 
+  void _updateExpense(Expense expense, Expense updatedExpense) {
+    var index = _registerdExpenses.indexOf(expense);
+    _registerdExpenses.remove(expense);
+    _registerdExpenses.insert(index, updatedExpense);
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -87,6 +94,7 @@ class _ExpensesState extends State<Expenses> {
                   child: ExpensesList(
                 expenses: _registerdExpenses,
                 onRemoveExpense: _removeExpense,
+                onUpdateExpense: _updateExpense,
               )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
             ])
           : Row(children: [
@@ -98,6 +106,7 @@ class _ExpensesState extends State<Expenses> {
                   child: ExpensesList(
                 expenses: _registerdExpenses,
                 onRemoveExpense: _removeExpense,
+                onUpdateExpense: _updateExpense,
               )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
             ]);
     }

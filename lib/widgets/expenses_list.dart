@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 
 class ExpensesList extends StatelessWidget {
   const ExpensesList(
-      {super.key, required this.expenses, required this.onRemoveExpense});
+      {super.key,
+      required this.expenses,
+      required this.onRemoveExpense,
+      required this.onUpdateExpense});
 
   final List<Expense> expenses;
   final Function(Expense) onRemoveExpense;
+  final Function(Expense,Expense) onUpdateExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,11 @@ class ExpensesList extends StatelessWidget {
           key: ValueKey(expenses[
               index]), // here we have to create a value key because it is important to know which expense to remove
           onDismissed: (direction) => onRemoveExpense(expenses[index]),
-          child: ExpenseItem(expenses[index])),
+          child: ExpenseItem(
+            expenses[index],
+            expenses: expenses,
+            onUpdateExpense: onUpdateExpense,
+          )),
     ); // here we use listview builder for optimization purpose
   }
 }

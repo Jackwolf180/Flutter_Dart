@@ -2,9 +2,20 @@ import 'package:basics/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key, required this.onAddExpense});
+  NewExpense({super.key, required this.onAddExpense})
+      : initialExpenseData = Expense(
+            title: "",
+            amount: -1,
+            date: DateTime.now(),
+            catagory: Catagory.leisure);
+  NewExpense.updateExpense(
+      {super.key,
+      required this.onUpdateExpense,
+      required this.initialExpenseData});
 
-  final Function(Expense) onAddExpense;
+  late Function(Expense) onAddExpense;
+  late Function(Expense, Expense) onUpdateExpense;
+  final Expense initialExpenseData;
 
   @override
   State createState() => _NewExpenseState();
@@ -17,6 +28,18 @@ class _NewExpenseState extends State<NewExpense> {
       _selectedDate; // we  use ? to tell that the selectedDate can possibly be null
 
   Catagory _selectedCatagory = Catagory.leisure;
+  @override
+  void initState() {
+    if (widget.initialExpenseData.amount != 1) {
+      _selectedDate = widget.initialExpenseData.date;
+      _selectedCatagory = widget.initialExpenseData.catagory;
+      _titleController.value =
+          TextEditingValue(text: widget.initialExpenseData.title);
+      _amountController.value =
+          TextEditingValue(text: widget.initialExpenseData.amount.toString());
+    }
+    super.initState();
+  }
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -34,7 +57,7 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void _submitExpenseDate() {
+  void _submitExpenseData() {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
     if (_titleController.text.trim().isEmpty ||
@@ -69,11 +92,15 @@ class _NewExpenseState extends State<NewExpense> {
     //         catagory: _selectedCatagory));
 
     // Method 2 by using the passby address
-    widget.onAddExpense(Expense(
+
+    Expense finalExpenseData = Expense(
         title: _titleController.text,
         amount: enteredAmount,
         date: _selectedDate!,
-        catagory: _selectedCatagory));
+        catagory: _selectedCatagory);
+    widget.initialExpenseData.amount == 1
+        ? widget.onAddExpense(finalExpenseData)
+        : widget.onUpdateExpense(widget.initialExpenseData, finalExpenseData);
     Navigator.pop(context);
   }
 
@@ -174,7 +201,7 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      _submitExpenseDate();
+                      _submitExpenseData();
                     },
                     child: const Text("Save Expense"),
                   )
