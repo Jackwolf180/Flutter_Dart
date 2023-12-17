@@ -14,6 +14,21 @@ class ExpensesList extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (cxt, index) => Dismissible(
+          background: Container(
+            color: Theme.of(context).colorScheme.error.withOpacity(0.75),
+            // margin: const EdgeInsets.symmetric(
+            //     horizontal:
+            //         16), // one way to get margin manually OR by using the theme.of(context) and then using the default theme of the settings we applied to the theme of the entire app
+
+            // margin: Theme.of(context).cardTheme.margin,
+
+            // OR
+            margin: EdgeInsets.symmetric(
+                horizontal: Theme.of(context)
+                    .cardTheme
+                    .margin!
+                    .horizontal), // it shows an error because the margin of the cardTheme can be possible be null
+          ),
           key: ValueKey(expenses[
               index]), // here we have to create a value key because it is important to know which expense to remove
           onDismissed: (direction) => onRemoveExpense(expenses[index]),
