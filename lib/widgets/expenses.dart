@@ -73,18 +73,34 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
+
     Widget mainContent =
         const Center(child: Text("No Expenses found. Start Adding one."));
     if (_registerdExpenses.isNotEmpty) {
-      mainContent = Column(children: [
-        Chart(expenses: _registerdExpenses),
-        Expanded(
-            child: ExpensesList(
-          expenses: _registerdExpenses,
-          onRemoveExpense: _removeExpense,
-        )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
-      ]);
+      mainContent = width < 600
+          ? Column(children: [
+              Chart(expenses: _registerdExpenses),
+              Expanded(
+                  child: ExpensesList(
+                expenses: _registerdExpenses,
+                onRemoveExpense: _removeExpense,
+              )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
+            ])
+          : Row(children: [
+              Expanded(
+                // here we are using expended because the chart has a container and it has a widtht property set to double.infinty thus it tries to take as much space as possible hence it must be wrapped with expanded so that it takes only the space required by it
+                child: Chart(expenses: _registerdExpenses),
+              ),
+              Expanded(
+                  child: ExpensesList(
+                expenses: _registerdExpenses,
+                onRemoveExpense: _removeExpense,
+              )), // here we use expended because in case of column or colume like widget the list takes infinite heigth
+            ]);
     }
+
     return Scaffold(
       appBar: AppBar(title: const Text("Flutter Expense Tracker"), actions: [
         IconButton(

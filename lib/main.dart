@@ -1,5 +1,6 @@
 import 'package:basics/widgets/expenses.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 96, 59, 181),
@@ -11,6 +12,10 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();// this ensures that the widget is binded and then only initilaized
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]).then((fn) {  // Method 1 of locking the device orientation
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     darkTheme: ThemeData.dark().copyWith(
@@ -45,13 +50,14 @@ void main() {
       textTheme: ThemeData().textTheme.copyWith(
             // titleLarge: ThemeData().textTheme.titleLarge.copyWith() //one of the approach is this
             titleLarge: TextStyle(
-                fontWeight: FontWeight.normal,
-                color: kColorScheme.onSecondaryContainer,
-                // fontSize: 14
-                ),
+              fontWeight: FontWeight.normal,
+              color: kColorScheme.onSecondaryContainer,
+              // fontSize: 14
+            ),
           ),
     ), // using the themeing system to theme the etire app
     themeMode: ThemeMode.system, // This is the default theme
     home: const Expenses(),
   ));
+  // });
 }
